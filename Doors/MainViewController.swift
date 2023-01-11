@@ -40,8 +40,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // TABLE
     private let tableView : UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "cell")
+        tableView.register(CustomTableViewCell.self,
+                           forCellReuseIdentifier: CustomTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -113,8 +113,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "1111"
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath)
         return cell
     }
 

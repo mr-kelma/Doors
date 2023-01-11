@@ -10,6 +10,7 @@
 		60C2B0D3DEF4F538AF9A38C4 /* Pods_Doors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60339D563321BA7CB93C695 /* Pods_Doors.framework */; };
 		702B52D3296EDDF100AA1A26 /* Sk-Modernist.otf in Resources */ = {isa = PBXBuildFile; fileRef = 702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */; };
 		702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52D8296EE2E800AA1A26 /* CustomFont.swift */; };
+		702B52DB296F51F700AA1A26 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */; };
 		70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A76296D7EC600031E68 /* AppDelegate.swift */; };
 		70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A78296D7EC600031E68 /* SceneDelegate.swift */; };
 		70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A7A296D7EC600031E68 /* MainViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sk-Modernist.otf"; sourceTree = "<group>"; };
 		702B52D8296EE2E800AA1A26 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
+		702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		70CE1A73296D7EC600031E68 /* Doors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70CE1A76296D7EC600031E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70CE1A78296D7EC600031E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		70CE1A90296D815E00031E68 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */,
 			);
 			name = View;
 			path = App;
@@ -273,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */,
+				702B52DB296F51F700AA1A26 /* CustomTableViewCell.swift in Sources */,
 				702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */,
 				70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */,
 				70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */,
