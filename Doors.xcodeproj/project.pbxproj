@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		60C2B0D3DEF4F538AF9A38C4 /* Pods_Doors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60339D563321BA7CB93C695 /* Pods_Doors.framework */; };
+		702B52D3296EDDF100AA1A26 /* Sk-Modernist.otf in Resources */ = {isa = PBXBuildFile; fileRef = 702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */; };
+		702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52D8296EE2E800AA1A26 /* CustomFont.swift */; };
 		70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A76296D7EC600031E68 /* AppDelegate.swift */; };
 		70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A78296D7EC600031E68 /* SceneDelegate.swift */; };
 		70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A7A296D7EC600031E68 /* MainViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sk-Modernist.otf"; sourceTree = "<group>"; };
+		702B52D8296EE2E800AA1A26 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		70CE1A73296D7EC600031E68 /* Doors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70CE1A76296D7EC600031E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70CE1A78296D7EC600031E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		702B52D7296EE2A900AA1A26 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				702B52D8296EE2E800AA1A26 /* CustomFont.swift */,
+			);
+			name = Extension;
+			path = App;
+			sourceTree = "<group>";
+		};
+		703BB9F8296ED8D000942958 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		70CE1A6A296D7EC500031E68 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +98,7 @@
 				70CE1A8D296D810100031E68 /* Controller */,
 				70CE1A90296D815E00031E68 /* View */,
 				70CE1A8F296D814E00031E68 /* Model */,
+				702B52D7296EE2A900AA1A26 /* Extension */,
 				70CE1A8E296D811F00031E68 /* Resources */,
 				70CE1A84296D7EC700031E68 /* Info.plist */,
 			);
@@ -105,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				70CE1A7F296D7EC700031E68 /* Assets.xcassets */,
+				703BB9F8296ED8D000942958 /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -196,6 +219,7 @@
 				70CE1A83296D7EC700031E68 /* LaunchScreen.storyboard in Resources */,
 				70CE1A8B296D809600031E68 /* .gitignore in Resources */,
 				70CE1A80296D7EC700031E68 /* Assets.xcassets in Resources */,
+				702B52D3296EDDF100AA1A26 /* Sk-Modernist.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */,
+				702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */,
 				70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */,
 				70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */,
 			);
