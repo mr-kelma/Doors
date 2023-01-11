@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import SnapKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Property
 
@@ -38,48 +37,95 @@ class MainViewController: UIViewController {
     }
     private lazy var settingButton = settingButton(text: "labelSetting", action: #selector(pressedSetting))
     
+    // TABLE
+    private let tableView : UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: "cell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+        tableView.delegate = self
+        tableView.dataSource = self
     }
-    
+
     //MARK: - Setups
     
     private func initialize() {
         view.backgroundColor = UIColor(ciColor: .white)
-
+        
+        tableView.backgroundColor = .clear
+        
         view.addSubview(topLabel)
-        topLabel.snp.makeConstraints { maker in
-            maker.top.equalToSuperview().inset(77)
-            maker.left.equalToSuperview().inset(24)
+        topLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(77)
+            $0.left.equalToSuperview().inset(24)
         }
         
         view.addSubview(settingButton)
-        settingButton.snp.makeConstraints { maker in
-            maker.top.equalToSuperview().inset(63)
-            maker.right.equalToSuperview().inset(27)
+        settingButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(63)
+            $0.right.equalToSuperview().inset(27)
         }
         
         view.addSubview(imageHomes)
-        imageHomes.snp.makeConstraints { maker in
-            maker.top.equalToSuperview().inset(108)
-            maker.right.equalToSuperview().inset(4)
+        imageHomes.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(108)
+            $0.right.equalToSuperview().inset(4)
         }
         
         view.addSubview(welcomeLabel)
-        welcomeLabel.snp.makeConstraints { maker in
-            maker.top.equalToSuperview().inset(157)
-            maker.left.equalToSuperview().inset(24)
+        welcomeLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(157)
+            $0.left.equalToSuperview().inset(24)
         }
         
         view.addSubview(myDoorsLabel)
-        myDoorsLabel.snp.makeConstraints { maker in
-            maker.top.equalToSuperview().inset(307)
-            maker.left.equalToSuperview().inset(24)
+        myDoorsLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(307)
+            $0.left.equalToSuperview().inset(24)
+        }
+        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(360)
+            $0.bottom.equalToSuperview().inset(40)
+            $0.left.right.equalToSuperview().inset(15)
         }
     }
+    
+    
+    
+    // MARK: - Table view data source
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "1111"
+        return cell
+    }
+
+    // MARK: - Table view delegate
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("1111")
+    }
+    
+    
+
     
     //MARK: - Action
     
