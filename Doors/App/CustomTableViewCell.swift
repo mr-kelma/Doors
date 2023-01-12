@@ -8,13 +8,28 @@
 import UIKit
 
 class CustomTableViewCell: UITableViewCell {
-    // MARK: Property
+    
+    // MARK: - Properties
     
     static let identifier = "CustomTableViewCell"
     
-    //MARK: - UIElements
+    private lazy var doorNameLabel = setLabel(text: "Front Door", style: "Bold", size: 16, color: "darkBlueColor")
+    private lazy var placeNameLabel = setLabel(text: "Home", style: "Regular", size: 14, color: "greyColor")
+    private lazy var doorConditionLabel = setLabel(text: "Locked", style: "Bold", size: 15, color: "BlueColor")
+        
+    // MARK: Init
     
-    // IMAGES
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        initialize()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Setups
+    
     private let leftIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "leftIconLocked")
@@ -29,7 +44,6 @@ class CustomTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    // LABELS
     private func setLabel(text: String, style: String, size: CGFloat, color: String) -> UILabel {
         let label = UILabel()
         label.text = text
@@ -37,23 +51,6 @@ class CustomTableViewCell: UITableViewCell {
         label.textColor = UIColor(named: color)
         return label
     }
-    
-    private lazy var doorNameLabel = setLabel(text: "Front Door", style: "Bold", size: 16, color: "darkBlueColor")
-    private lazy var placeNameLabel = setLabel(text: "Home", style: "Regular", size: 14, color: "greyColor")
-    private lazy var doorConditionLabel = setLabel(text: "Locked", style: "Bold", size: 15, color: "BlueColor")
-    
-    // MARK: Init
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        initialize()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    //MARK: - Setups
     
     private func initialize() {
         contentView.backgroundColor = .clear
