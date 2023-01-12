@@ -10,9 +10,10 @@ import UIKit
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Property
-
-    //MARK: - UIElements
+    private let userDoors: [Door] = UserDoors.doors
     
+    //MARK: - UIElements
+
     // BUTTON
     private func settingButton(text: String, action: Selector) -> UIButton {
         let button = UIButton()
@@ -23,22 +24,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return button
     }
     private lazy var settingButton = settingButton(text: "imageSetting", action: #selector(pressedSetting))
-    
+
     // IMAGES
     private let imageHomes = UIImageView(image: UIImage(named: "imageHomes"))
-    
+
     // LABELS
     private let topLabel = UIImageView(image: UIImage(named: "topLabel"))
-    
-    private func setLabel(text: String, size: CGFloat) -> UILabel {
+
+    private func setLabel(text: String, style: String, size: CGFloat) -> UILabel {
         let label = UILabel()
         label.text = text
-        label.font = UIFont.customFont(size: size)
+        label.font = UIFont.skModernist(style: style, size: size)
         return label
     }
-    private lazy var welcomeLabel = setLabel(text: "Welcome", size: 35)
-    private lazy var myDoorsLabel = setLabel(text: "My doors", size: 20)
-    
+    private lazy var welcomeLabel = setLabel(text: "Welcome", style: "Bold", size: 35)
+    private lazy var myDoorsLabel = setLabel(text: "My doors", style: "Bold", size: 20)
+
     // TABLE
     private let tableView : UITableView = {
         let tableView = UITableView()
@@ -47,7 +48,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -58,7 +59,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     //MARK: - Setups
-    
+
     private func initialize() {
         view.backgroundColor = UIColor(ciColor: .white)
         
@@ -111,7 +112,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return userDoors.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -124,8 +125,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("1111")
     }
-    
-    
 
     
     //MARK: - Action
