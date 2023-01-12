@@ -7,40 +7,14 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController {
 
-    // MARK: Property
-    private let userDoors: [Door] = UserDoors.doors
+    // MARK: - Properties
     
-    //MARK: - UIElements
-
-    // BUTTON
-    private func settingButton(text: String, action: Selector) -> UIButton {
-        let button = UIButton()
-        button.setImage(UIImage(named: text), for: .normal)
-        button.clipsToBounds = true
-        button.addTarget(self, action: action, for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }
-    private lazy var settingButton = settingButton(text: "imageSetting", action: #selector(pressedSetting))
-
-    // IMAGES
-    private let imageHomes = UIImageView(image: UIImage(named: "imageHomes"))
-
-    // LABELS
+    private let model = DoorModel.shared
     private let topLabel = UIImageView(image: UIImage(named: "topLabel"))
-
-    private func setLabel(text: String, style: String, size: CGFloat) -> UILabel {
-        let label = UILabel()
-        label.text = text
-        label.font = UIFont.skModernist(style: style, size: size)
-        return label
-    }
-    private lazy var welcomeLabel = setLabel(text: "Welcome", style: "Bold", size: 35)
-    private lazy var myDoorsLabel = setLabel(text: "My doors", style: "Bold", size: 20)
-
-    // TABLE
+    private let imageHomes = UIImageView(image: UIImage(named: "imageHomes"))
+    
     private let tableView : UITableView = {
         let tableView = UITableView()
         tableView.register(CustomTableViewCell.self,
@@ -48,7 +22,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-
+    
+    private lazy var welcomeLabel = setLabel(text: "Welcome", style: "Bold", size: 35)
+    private lazy var myDoorsLabel = setLabel(text: "My doors", style: "Bold", size: 20)
+    private lazy var settingButton = settingButton(text: "imageSetting", action: #selector(pressedSetting))
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -57,8 +35,24 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    // MARK: - Setups
+    
+    private func settingButton(text: String, action: Selector) -> UIButton {
+        let button = UIButton()
+        button.setImage(UIImage(named: text), for: .normal)
+        button.clipsToBounds = true
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
 
-    //MARK: - Setups
+    private func setLabel(text: String, style: String, size: CGFloat) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.font = UIFont.skModernist(style: style, size: size)
+        return label
+    }
 
     private func initialize() {
         view.backgroundColor = UIColor(ciColor: .white)
@@ -102,17 +96,24 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             $0.left.right.equalToSuperview().inset(15)
         }
     }
-    
-    
-    
-    // MARK: - Table view data source
 
+    //MARK: - Action
+    
+    @objc private func pressedSetting() {
+        print("The settings button was pressed")
+    }
+}
+
+// MARK: - Table view data source
+
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userDoors.count
+        return 4
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,16 +121,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 
-    // MARK: - Table view delegate
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("1111")
-    }
-
-    
-    //MARK: - Action
-    
-    @objc private func pressedSetting() {
-        print("The settings button was pressed")
+        print("action after press cell")
     }
 }
