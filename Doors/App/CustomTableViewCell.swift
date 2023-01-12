@@ -30,17 +30,17 @@ class CustomTableViewCell: UITableViewCell {
     }()
     
     // LABELS
-    private func setLabel(text: String, size: CGFloat, color: String) -> UILabel {
+    private func setLabel(text: String, style: String, size: CGFloat, color: String) -> UILabel {
         let label = UILabel()
         label.text = text
-        label.font = UIFont.customFont(size: size)
+        label.font = UIFont.skModernist(style: style, size: size)
         label.textColor = UIColor(named: color)
         return label
     }
     
-    private lazy var frontDoorLabel = setLabel(text: "Front Door", size: 16, color: "darkBlueColor")
-    private lazy var placeNameLabel = setLabel(text: "Home", size: 14, color: "greyColor")
-    private lazy var doorConditionLabel = setLabel(text: "Locked", size: 15, color: "BlueColor")
+    private lazy var doorNameLabel = setLabel(text: "Front Door", style: "Bold", size: 16, color: "darkBlueColor")
+    private lazy var placeNameLabel = setLabel(text: "Home", style: "Regular", size: 14, color: "greyColor")
+    private lazy var doorConditionLabel = setLabel(text: "Locked", style: "Bold", size: 15, color: "BlueColor")
     
     // MARK: Init
     
@@ -72,8 +72,8 @@ class CustomTableViewCell: UITableViewCell {
             $0.right.equalToSuperview().offset(-28)
         }
         
-        contentView.addSubview(frontDoorLabel)
-        frontDoorLabel.snp.makeConstraints {
+        contentView.addSubview(doorNameLabel)
+        doorNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(22)
             $0.left.equalToSuperview().offset(82)
         }

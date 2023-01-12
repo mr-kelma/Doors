@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		60C2B0D3DEF4F538AF9A38C4 /* Pods_Doors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60339D563321BA7CB93C695 /* Pods_Doors.framework */; };
-		702B52D3296EDDF100AA1A26 /* Sk-Modernist.otf in Resources */ = {isa = PBXBuildFile; fileRef = 702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */; };
+		702B52D3296EDDF100AA1A26 /* Sk-Modernist-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 702B52D2296EDDE800AA1A26 /* Sk-Modernist-Bold.otf */; };
 		702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52D8296EE2E800AA1A26 /* CustomFont.swift */; };
 		702B52DB296F51F700AA1A26 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */; };
 		70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A76296D7EC600031E68 /* AppDelegate.swift */; };
@@ -17,10 +17,12 @@
 		70CE1A80296D7EC700031E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70CE1A7F296D7EC700031E68 /* Assets.xcassets */; };
 		70CE1A83296D7EC700031E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70CE1A81296D7EC700031E68 /* LaunchScreen.storyboard */; };
 		70CE1A8B296D809600031E68 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 70CE1A8A296D809600031E68 /* .gitignore */; };
+		70D0D5DC296FFA7B00DA0976 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D0D5DB296FFA7B00DA0976 /* Door.swift */; };
+		70D0D5DF297001B400DA0976 /* UserDoors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D0D5DE297001B400DA0976 /* UserDoors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sk-Modernist.otf"; sourceTree = "<group>"; };
+		702B52D2296EDDE800AA1A26 /* Sk-Modernist-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sk-Modernist-Bold.otf"; sourceTree = "<group>"; };
 		702B52D8296EE2E800AA1A26 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		70CE1A73296D7EC600031E68 /* Doors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doors.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +33,9 @@
 		70CE1A82296D7EC700031E68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70CE1A84296D7EC700031E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70CE1A8A296D809600031E68 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		70D0D5DB296FFA7B00DA0976 /* Door.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
+		70D0D5DD296FFCA700DA0976 /* Sk-Modernist-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sk-Modernist-Regular.otf"; sourceTree = "<group>"; };
+		70D0D5DE297001B400DA0976 /* UserDoors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDoors.swift; sourceTree = "<group>"; };
 		E44DAB02C3F52519A7B7060E /* Pods-Doors.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doors.release.xcconfig"; path = "Target Support Files/Pods-Doors/Pods-Doors.release.xcconfig"; sourceTree = "<group>"; };
 		EF91784F1552651AFCBB1FC2 /* Pods-Doors.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doors.debug.xcconfig"; path = "Target Support Files/Pods-Doors/Pods-Doors.debug.xcconfig"; sourceTree = "<group>"; };
 		F60339D563321BA7CB93C695 /* Pods_Doors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +74,8 @@
 		703BB9F8296ED8D000942958 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				702B52D2296EDDE800AA1A26 /* Sk-Modernist.otf */,
+				702B52D2296EDDE800AA1A26 /* Sk-Modernist-Bold.otf */,
+				70D0D5DD296FFCA700DA0976 /* Sk-Modernist-Regular.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -137,6 +143,8 @@
 		70CE1A8F296D814E00031E68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				70D0D5DB296FFA7B00DA0976 /* Door.swift */,
+				70D0D5DE297001B400DA0976 /* UserDoors.swift */,
 			);
 			name = Model;
 			path = App;
@@ -222,7 +230,7 @@
 				70CE1A83296D7EC700031E68 /* LaunchScreen.storyboard in Resources */,
 				70CE1A8B296D809600031E68 /* .gitignore in Resources */,
 				70CE1A80296D7EC700031E68 /* Assets.xcassets in Resources */,
-				702B52D3296EDDF100AA1A26 /* Sk-Modernist.otf in Resources */,
+				702B52D3296EDDF100AA1A26 /* Sk-Modernist-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +284,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */,
+				70D0D5DC296FFA7B00DA0976 /* Door.swift in Sources */,
+				70D0D5DF297001B400DA0976 /* UserDoors.swift in Sources */,
 				702B52DB296F51F700AA1A26 /* CustomTableViewCell.swift in Sources */,
 				702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */,
 				70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */,

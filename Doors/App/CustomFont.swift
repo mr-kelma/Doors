@@ -8,10 +8,11 @@
 import UIKit
 
 extension UIFont {
-    static func customFont(size: CGFloat) -> UIFont {
-      guard let customFont = UIFont(name: "Sk-Modernist-Bold", size: size) else {
+    static func skModernist(style: String, size: CGFloat) -> UIFont {
+        let style = "Sk-Modernist-\(style)"
+        guard let skModernist = UIFont(name: style, size: size) else {
         return UIFont.systemFont(ofSize: size)
       }
-      return customFont
+      return skModernist
     }
 }
