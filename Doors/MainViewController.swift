@@ -13,8 +13,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     //MARK: - UIElements
     
-    // LABELS
+    // BUTTON
+    private func settingButton(text: String, action: Selector) -> UIButton {
+        let button = UIButton()
+        button.setImage(UIImage(named: text), for: .normal)
+        button.clipsToBounds = true
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+    private lazy var settingButton = settingButton(text: "imageSetting", action: #selector(pressedSetting))
+    
+    // IMAGES
     private let imageHomes = UIImageView(image: UIImage(named: "imageHomes"))
+    
+    // LABELS
     private let topLabel = UIImageView(image: UIImage(named: "topLabel"))
     
     private func setLabel(text: String, size: CGFloat) -> UILabel {
@@ -25,17 +38,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     private lazy var welcomeLabel = setLabel(text: "Welcome", size: 35)
     private lazy var myDoorsLabel = setLabel(text: "My doors", size: 20)
-    
-    // BUTTON
-    private func settingButton(text: String, action: Selector) -> UIButton {
-        let button = UIButton()
-        button.setImage(UIImage(named: text), for: .normal)
-        button.clipsToBounds = true
-        button.addTarget(self, action: action, for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }
-    private lazy var settingButton = settingButton(text: "labelSetting", action: #selector(pressedSetting))
     
     // TABLE
     private let tableView : UITableView = {
@@ -109,7 +111,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
