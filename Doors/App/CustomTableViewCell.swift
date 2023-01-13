@@ -39,11 +39,12 @@ class CustomTableViewCell: UITableViewCell {
     private lazy var doorNameLabel = setLabel(text: "Front door", style: "Bold", size: 16, color: "darkBlueColor")
     private lazy var placeNameLabel = setLabel(text: "Home", style: "Regular", size: 14, color: "greyColor")
     private lazy var doorConditionLabel = setLabel(text: "Locked", style: "Bold", size: 15, color: "blueColor")
-        
+    
     // MARK: Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         initialize()
     }
     
@@ -68,36 +69,23 @@ class CustomTableViewCell: UITableViewCell {
         }
     }
     
-    func changeCellCondition(door: Door) {
-        print("Sending infomation about \(door.name) of \(door.place)")
-        self.doorNameLabel.text = door.name
-        self.placeNameLabel.text = door.place
-        self.doorConditionLabel.text = "Unlocking..."
-        self.doorConditionLabel.textColor = UIColor(named: "greyColor")
-        self.leftIcon.image = UIImage(named: "leftIconUnlocking")
-        self.rightIcon.image = UIImage(named: "iconLoadCircle")
-        
-        if self.rightIcon.image == UIImage(named: "iconLoadCircle") {
-            rotateView(targetView: rightIcon)
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            self?.doorNameLabel.text = door.name
-            self?.placeNameLabel.text = door.place
-            self?.doorConditionLabel.text = "Unlocked"
-            self?.doorConditionLabel.textColor = UIColor(named: "lightBlueColor")
-            self?.leftIcon.image = UIImage(named: "leftIconUnlocked")
-            self?.rightIcon.image = UIImage(named: "rightIconUnlocked")
-            print("Infomation sent")
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-                self?.doorNameLabel.text = door.name
-                self?.placeNameLabel.text = door.place
-                self?.doorConditionLabel.text = "Locked"
-                self?.doorConditionLabel.textColor = UIColor(named: "blueColor")
-                self?.leftIcon.image = UIImage(named: "leftIconLocked")
-                self?.rightIcon.image = UIImage(named: "rightIconLocked")
-            }
+    func changeCellCondition(doorCondition: String) {
+        switch doorCondition {
+        case "Locked":
+            self.doorConditionLabel.text = "Locked"
+            self.doorConditionLabel.textColor = UIColor(named: "blueColor")
+            self.leftIcon.image = UIImage(named: "leftIconLocked")
+            self.rightIcon.image = UIImage(named: "rightIconLocked")
+        case "Unlocking":
+            self.doorConditionLabel.text = "Unlocking..."
+            self.doorConditionLabel.textColor = UIColor(named: "greyColor")
+            self.leftIcon.image = UIImage(named: "leftIconUnlocking")
+            self.rightIcon.image = UIImage(named: "iconLoadCircle")
+        default:
+            self.doorConditionLabel.text = "Unlocked"
+            self.doorConditionLabel.textColor = UIColor(named: "lightBlueColor")
+            self.leftIcon.image = UIImage(named: "leftIconUnlocked")
+            self.rightIcon.image = UIImage(named: "rightIconUnocked")
         }
     }
     

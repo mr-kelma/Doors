@@ -141,10 +141,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else { return }
-        let door = doorsData[indexPath.row]
-        cell.changeCellCondition(door: door)
+        guard let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell else { return }
+        var door = doorsData[indexPath.row]
+        door.condition = .Unlocking
+        doorsData[indexPath.row].condition = .Unlocking
+        let doorCondition = door.condition.rawValue
+        cell.changeCellCondition(doorCondition: doorCondition)
+        
+        
+        
+        // 1. Реагируем на изменение данных в идеале в модели (пока в vc)
+        // 2. Говорим ячейке что изменилось состояние:
+        // - закрыта
+        // - открыватся, подожди 3 секунды ->
+        // - открыта
+        //
     }
 }
