@@ -141,10 +141,30 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else { return }
-        let door = doorsData[indexPath.row]
-        cell.changeCellCondition(door: door)
+        guard let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell else { return }
+        var door = doorsData[indexPath.row]
+        door.condition = .Unlocking
+        doorsData[indexPath.row].condition = .Unlocking
+        let doorCondition = door.condition.rawValue
+        cell.changeCellCondition(doorCondition: doorCondition)
+        cell.isUserInteractionEnabled = false
+
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            door.condition = .Unlocked
+            self.doorsData[indexPath.row].condition = .Unlocked
+            let doorCondition = door.condition.rawValue
+            cell.changeCellCondition(doorCondition: doorCondition)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            door.condition = .Locked
+            self.doorsData[indexPath.row].condition = .Locked
+            let doorCondition = door.condition.rawValue
+            cell.changeCellCondition(doorCondition: doorCondition)
+            cell.isUserInteractionEnabled = true
+        }
     }
 }
