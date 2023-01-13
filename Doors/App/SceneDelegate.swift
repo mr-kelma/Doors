@@ -14,14 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let viewController = ViewController()
-        
-        let navigatorController = UINavigationController(rootViewController: viewController)
-        navigatorController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigatorController.navigationBar.shadowImage = UIImage()
-        navigatorController.navigationBar.isTranslucent = true
-
-        window?.rootViewController = navigatorController
+        let viewController = MainViewController()
+        window?.rootViewController = viewController
         window?.makeKeyAndVisible()
     }
 }
