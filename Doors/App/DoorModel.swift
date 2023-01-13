@@ -25,7 +25,8 @@ class DoorModel {
                 Door(name: "Front door", place: "Home", condition: Condition.Locked),
                 Door(name: "Front door", place: "Office", condition: Condition.Locked),
                 Door(name: "Front door", place: "Garage", condition: Condition.Locked),
-                Door(name: "Front door", place: "Country house", condition: Condition.Locked)
+                Door(name: "Front door", place: "Country house", condition: Condition.Locked),
+                Door(name: "Front door", place: "Shed", condition: Condition.Locked)
             ]
             print("Data received")
         }
