@@ -89,6 +89,15 @@ class CustomTableViewCell: UITableViewCell {
             self?.leftIcon.image = UIImage(named: "leftIconUnlocked")
             self?.rightIcon.image = UIImage(named: "rightIconUnlocked")
             print("Infomation sent")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                self?.doorNameLabel.text = door.name
+                self?.placeNameLabel.text = door.place
+                self?.doorConditionLabel.text = "Locked"
+                self?.doorConditionLabel.textColor = UIColor(named: "blueColor")
+                self?.leftIcon.image = UIImage(named: "leftIconLocked")
+                self?.rightIcon.image = UIImage(named: "rightIconLocked")
+            }
         }
     }
     

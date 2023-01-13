@@ -11,12 +11,10 @@ class MainViewController: UIViewController {
 
     // MARK: - Properties
     
-    var doorsData: [Door] = []
-    
     private let model = DoorModel.shared
     private let topLabel = UIImageView(image: UIImage(named: "topLabel"))
     private let imageHomes = UIImageView(image: UIImage(named: "imageHomes"))
-    private let iconLoadCircle = UIImageView(image: UIImage(named: "iconLoadCircle"))
+    private let activityIndicator = UIActivityIndicatorView()
     
     private let doorTable : UITableView = {
         let tableView = UITableView()
@@ -29,6 +27,8 @@ class MainViewController: UIViewController {
         return tableView
     }()
     
+    private var doorsData: [Door] = []
+    
     private lazy var welcomeLabel = setLabel(text: "Welcome", style: "Bold", size: 35)
     private lazy var myDoorsLabel = setLabel(text: "My doors", style: "Bold", size: 20)
     private lazy var settingButton = setButton(text: "imageSetting", action: #selector(pressedSetting))
@@ -38,9 +38,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(ciColor: .white)
+        activityIndicator.startAnimating()
         doorTable.delegate = self
         doorTable.dataSource = self
-        rotateView(targetView: iconLoadCircle, duration: 0.8)
         initialize()
         loadTableView()
     }
@@ -78,11 +78,10 @@ class MainViewController: UIViewController {
             $0.left.equalToSuperview().inset(24)
         }
         
-        view.addSubview(iconLoadCircle)
-        iconLoadCircle.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(314)
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(312)
             $0.left.equalTo(myDoorsLabel.snp.right).offset(8)
-            $0.height.width.equalTo(22*0.7)
         }
         
         view.addSubview(doorTable)
@@ -97,6 +96,7 @@ class MainViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.doorsData = self.model.doors
             self.doorTable.reloadData()
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -123,20 +123,6 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: - Rotate mode
-
-extension MainViewController {
-    func rotateView(targetView: UIView, duration: Double = 1) {
-        UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
-            targetView.transform = targetView.transform.rotated(by: .pi)
-        }) { finished in self.rotateView(targetView: targetView, duration: duration)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            self?.iconLoadCircle.alpha = 0
-        }
-    }
-}
-
 // MARK: - Table view data source
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
@@ -152,6 +138,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
         cell.configureCellWith(door: doorsData[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
 
