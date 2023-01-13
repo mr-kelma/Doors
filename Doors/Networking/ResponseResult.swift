@@ -8,9 +8,9 @@
 import Foundation
 
 enum Condition: String, Codable {
-    case locked
-    case unlocked
-    case unlocking
+    case Locked
+    case Unlocking
+    case Unlocked
 }
 
 struct Door: Codable {
@@ -19,16 +19,15 @@ struct Door: Codable {
     var condition: Condition
     var color: String {
         switch condition {
-        case Condition.locked:
+        case Condition.Locked:
             return "blueColor"
-        case Condition.unlocked:
-            return "lightBlueColor"
-        default:
+        case Condition.Unlocking:
             return "greyColor"
+        default:
+            return "lightBlueColor"
         }
     }
 }
-
 
 struct ResponseResult: Codable {
     let result: [Door]

@@ -7,14 +7,12 @@
 
 import Foundation
 
-class NetworkManager {
+class NetworkingManager {
     
     private let apiAddress = "http://api.doors.org/data/***"
     
     func downloadData(_ completionHandler: @escaping (ResponseResult) -> Void) {
-        
         guard let url = URL(string: apiAddress) else { return }
-        
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
             if let error = error {
