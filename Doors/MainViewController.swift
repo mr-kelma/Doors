@@ -149,14 +149,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         doorsData[indexPath.row].condition = .Unlocking
         let doorCondition = door.condition.rawValue
         cell.changeCellCondition(doorCondition: doorCondition)
+        cell.isUserInteractionEnabled = false
+
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            door.condition = .Unlocked
+            self.doorsData[indexPath.row].condition = .Unlocked
+            let doorCondition = door.condition.rawValue
+            cell.changeCellCondition(doorCondition: doorCondition)
+        }
         
-        
-        // 1. Реагируем на изменение данных в идеале в модели (пока в vc)
-        // 2. Говорим ячейке что изменилось состояние:
-        // - закрыта
-        // - открыватся, подожди 3 секунды ->
-        // - открыта
-        //
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            door.condition = .Locked
+            self.doorsData[indexPath.row].condition = .Locked
+            let doorCondition = door.condition.rawValue
+            cell.changeCellCondition(doorCondition: doorCondition)
+            cell.isUserInteractionEnabled = true
+        }
     }
 }

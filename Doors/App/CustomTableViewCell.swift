@@ -27,6 +27,13 @@ class CustomTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private let iconLoadCircle: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "iconLoadCircle")
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     private lazy var container: UIView = {
         var view = UIView()
         view.backgroundColor = .white
@@ -80,12 +87,14 @@ class CustomTableViewCell: UITableViewCell {
             self.doorConditionLabel.text = "Unlocking..."
             self.doorConditionLabel.textColor = UIColor(named: "greyColor")
             self.leftIcon.image = UIImage(named: "leftIconUnlocking")
-            self.rightIcon.image = UIImage(named: "iconLoadCircle")
+            unlockingDoor()
+            rotateView(targetView: iconLoadCircle, duration: 1)
         default:
             self.doorConditionLabel.text = "Unlocked"
             self.doorConditionLabel.textColor = UIColor(named: "lightBlueColor")
             self.leftIcon.image = UIImage(named: "leftIconUnlocked")
-            self.rightIcon.image = UIImage(named: "rightIconUnocked")
+            self.rightIcon.image = UIImage(named: "rightIconUnlocked")
+            removeIndicator()
         }
     }
     
@@ -95,6 +104,21 @@ class CustomTableViewCell: UITableViewCell {
         label.font = UIFont.skModernist(style: style, size: size)
         label.textColor = UIColor(named: color)
         return label
+    }
+    
+    private func unlockingDoor() {
+        rightIcon.alpha = 0
+        container.addSubview(iconLoadCircle)
+        iconLoadCircle.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(25)
+            $0.right.equalToSuperview().offset(-30)
+            $0.height.width.equalTo(25)
+        }
+    }
+    
+    private func removeIndicator() {
+        rightIcon.alpha = 1
+        iconLoadCircle.removeFromSuperview()
     }
     
     private func initialize() {
@@ -142,7 +166,7 @@ class CustomTableViewCell: UITableViewCell {
 // MARK: - Rotate mode
 
 extension CustomTableViewCell {
-    func rotateView(targetView: UIView, duration: Double = 1) {
+    func rotateView(targetView: UIView, duration: Double) {
         UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
             targetView.transform = targetView.transform.rotated(by: .pi)
         }) { finished in self.rotateView(targetView: targetView, duration: duration)
