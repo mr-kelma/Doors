@@ -11,25 +11,25 @@ class CustomTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "CustomTableViewCell"
+    static let identifier = C.identifier
     
     private let leftIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "leftIconLocked")
+        imageView.image = UIImage(named: C.Icons.leftLocked)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private let rightIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "rightIconLocked")
+        imageView.image = UIImage(named: C.Icons.rightLocked)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private let iconLoadCircle: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "iconLoadCircle")
+        imageView.image = UIImage(named: C.Icons.loadCircle)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -43,9 +43,9 @@ class CustomTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var doorNameLabel = setLabel(text: "Front door", style: "Bold", size: 16, color: "darkBlueColor")
-    private lazy var placeNameLabel = setLabel(text: "Home", style: "Regular", size: 14, color: "greyColor")
-    private lazy var doorConditionLabel = setLabel(text: "Locked", style: "Bold", size: 15, color: "blueColor")
+    private lazy var doorNameLabel = setLabel(text: C.Labels.frontDoor, style: FontWeight.bold.rawValue, size: 16, color: C.Colors.darkBlueColor)
+    private lazy var placeNameLabel = setLabel(text: C.Labels.home, style: FontWeight.regular.rawValue, size: 14, color: C.Colors.greyColor)
+    private lazy var doorConditionLabel = setLabel(text: Condition.Locked.rawValue, style: FontWeight.bold.rawValue, size: 15, color: C.Colors.blueColor)
     
     // MARK: Init
     
@@ -68,32 +68,34 @@ class CustomTableViewCell: UITableViewCell {
         
         switch door.condition {
         case Condition.Locked:
-            doorConditionLabel.textColor = UIColor(named: "blueColor")
+            doorConditionLabel.textColor = UIColor(named: C.Colors.blueColor)
         case Condition.Unlocking:
-            doorConditionLabel.textColor = UIColor(named: "greyColor")
+            doorConditionLabel.textColor = UIColor(named: C.Colors.greyColor)
         default:
-            doorConditionLabel.textColor = UIColor(named: "lightBlueColor")
+            doorConditionLabel.textColor = UIColor(named: C.Colors.lightBlueColor)
         }
     }
     
     func changeCellCondition(doorCondition: String) {
         switch doorCondition {
-        case "Locked":
-            self.doorConditionLabel.text = "Locked"
-            self.doorConditionLabel.textColor = UIColor(named: "blueColor")
-            self.leftIcon.image = UIImage(named: "leftIconLocked")
-            self.rightIcon.image = UIImage(named: "rightIconLocked")
-        case "Unlocking":
-            self.doorConditionLabel.text = "Unlocking..."
-            self.doorConditionLabel.textColor = UIColor(named: "greyColor")
-            self.leftIcon.image = UIImage(named: "leftIconUnlocking")
+        case Condition.Unlocked.rawValue:
+            self.doorConditionLabel.text = Condition.Unlocked.rawValue
+            self.doorConditionLabel.textColor = UIColor(named: C.Colors.lightBlueColor)
+            self.leftIcon.image = UIImage(named: C.Icons.leftUnlocked)
+            self.rightIcon.image = UIImage(named: C.Icons.rightLocked)
+        case Condition.Unlocking.rawValue:
+            self.doorConditionLabel.text = Condition.Unlocking.rawValue+"..."
+            self.doorConditionLabel.textColor = UIColor(named: C.Colors.greyColor)
+            self.leftIcon.image = UIImage(named: C.Icons.leftUnlocking)
+            
             unlockingDoor()
             rotateView(targetView: iconLoadCircle, duration: 1)
         default:
-            self.doorConditionLabel.text = "Unlocked"
-            self.doorConditionLabel.textColor = UIColor(named: "lightBlueColor")
-            self.leftIcon.image = UIImage(named: "leftIconUnlocked")
-            self.rightIcon.image = UIImage(named: "rightIconUnlocked")
+            self.doorConditionLabel.text = Condition.Locked.rawValue
+            self.doorConditionLabel.textColor = UIColor(named: C.Colors.blueColor)
+            self.leftIcon.image = UIImage(named: C.Icons.leftLocked)
+            self.rightIcon.image = UIImage(named: C.Icons.rightLocked)
+            
             removeIndicator()
         }
     }

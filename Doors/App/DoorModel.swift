@@ -12,7 +12,7 @@ class DoorModel {
     static let shared = DoorModel()
     var doors: [Door] = []
     
-//    private let networkingManager = NetworkingManager()
+    private let networkingManager = NetworkingManager()
     
     init() {
         self.loadData()

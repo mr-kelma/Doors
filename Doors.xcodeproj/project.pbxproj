@@ -11,6 +11,7 @@
 		702B52D3296EDDF100AA1A26 /* Sk-Modernist-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 702B52D2296EDDE800AA1A26 /* Sk-Modernist-Bold.otf */; };
 		702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52D8296EE2E800AA1A26 /* CustomFont.swift */; };
 		702B52DB296F51F700AA1A26 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */; };
+		705DFD762972E50A0071375B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DFD752972E50A0071375B /* Constants.swift */; };
 		70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A76296D7EC600031E68 /* AppDelegate.swift */; };
 		70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A78296D7EC600031E68 /* SceneDelegate.swift */; };
 		70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A7A296D7EC600031E68 /* MainViewController.swift */; };
@@ -26,6 +27,7 @@
 		702B52D2296EDDE800AA1A26 /* Sk-Modernist-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sk-Modernist-Bold.otf"; sourceTree = "<group>"; };
 		702B52D8296EE2E800AA1A26 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		705DFD752972E50A0071375B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		70CE1A73296D7EC600031E68 /* Doors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70CE1A76296D7EC600031E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70CE1A78296D7EC600031E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 		702B52D7296EE2A900AA1A26 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				705DFD752972E50A0071375B /* Constants.swift */,
 				702B52D8296EE2E800AA1A26 /* CustomFont.swift */,
 			);
 			name = Extension;
@@ -302,6 +305,7 @@
 				70D0D5E429709C0800DA0976 /* ResponseResult.swift in Sources */,
 				70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */,
 				70D0D5E229709A9500DA0976 /* NetworkingManager.swift in Sources */,
+				705DFD762972E50A0071375B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

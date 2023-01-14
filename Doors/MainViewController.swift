@@ -12,8 +12,8 @@ class MainViewController: UIViewController {
     // MARK: - Properties
     
     private let model = DoorModel.shared
-    private let topLabel = UIImageView(image: UIImage(named: "topLabel"))
-    private let imageHomes = UIImageView(image: UIImage(named: "imageHomes"))
+    private let topLabel = UIImageView(image: UIImage(named: C.Images.topLabel))
+    private let imageHomes = UIImageView(image: UIImage(named: C.Images.homes))
     private let activityIndicator = UIActivityIndicatorView()
     
     private let doorTable : UITableView = {
@@ -29,9 +29,9 @@ class MainViewController: UIViewController {
     
     private var doorsData: [Door] = []
     
-    private lazy var welcomeLabel = setLabel(text: "Welcome", style: "Bold", size: 35)
-    private lazy var myDoorsLabel = setLabel(text: "My doors", style: "Bold", size: 20)
-    private lazy var settingButton = setButton(text: "imageSetting", action: #selector(pressedSetting))
+    private lazy var welcomeLabel = setLabel(text: C.Labels.welcome, style: FontWeight.bold.rawValue, size: 35)
+    private lazy var myDoorsLabel = setLabel(text: C.Labels.myDoors, style: FontWeight.bold.rawValue, size: 20)
+    private lazy var settingButton = setButton(text: C.Images.setting, action: #selector(pressedSetting))
     
     // MARK: - LifeCycle
     
