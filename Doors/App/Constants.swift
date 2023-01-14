@@ -32,7 +32,7 @@ struct C {
         
     }
     
-        struct Labels {
+    struct Labels {
             static let frontDoor = "Front door"
             static let home = "Home"
             static let myDoors = "My doors"

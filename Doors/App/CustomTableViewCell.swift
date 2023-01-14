@@ -51,8 +51,10 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = .clear
         selectionStyle = .none
-        initialize()
+        setupSubviews()
+        makeConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +63,7 @@ class CustomTableViewCell: UITableViewCell {
     
     // MARK: - Setups
     
-    func configureCellWith(door: Door) {
+    func configureCellWith(door: DoorModel) {
         doorNameLabel.text = door.name
         placeNameLabel.text = door.place
         doorConditionLabel.text = door.condition.rawValue
@@ -123,41 +125,43 @@ class CustomTableViewCell: UITableViewCell {
         iconLoadCircle.removeFromSuperview()
     }
     
-    private func initialize() {
-        contentView.backgroundColor = .clear
-        
+    private func setupSubviews() {
         contentView.addSubview(container)
+        container.addSubview(leftIcon)
+        container.addSubview(rightIcon)
+        container.addSubview(doorNameLabel)
+        container.addSubview(placeNameLabel)
+        container.addSubview(doorConditionLabel)
+    }
+    
+    private func makeConstraints() {
+        
         container.snp.makeConstraints {
             $0.width.equalTo(UIScreen.main.bounds.width - 36)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(110)
         }
         
-        container.addSubview(leftIcon)
         leftIcon.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18)
             $0.left.equalToSuperview().offset(27)
         }
         
-        container.addSubview(rightIcon)
         rightIcon.snp.makeConstraints {
             $0.top.equalToSuperview().offset(18)
             $0.right.equalToSuperview().offset(-28)
         }
         
-        container.addSubview(doorNameLabel)
         doorNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(22)
             $0.left.equalToSuperview().offset(82)
         }
         
-        container.addSubview(placeNameLabel)
         placeNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(41)
             $0.left.equalToSuperview().offset(82)
         }
         
-        container.addSubview(doorConditionLabel)
         doorConditionLabel.snp.makeConstraints {
             $0.top.equalTo(placeNameLabel.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
