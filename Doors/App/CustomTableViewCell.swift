@@ -13,6 +13,8 @@ class CustomTableViewCell: UITableViewCell {
     
     static let identifier = C.identifier
     
+    var didPressedLabelCondition: (() -> Void)?
+    
     private let leftIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: C.Icons.leftLocked)
@@ -53,6 +55,7 @@ class CustomTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .clear
         selectionStyle = .none
+        setupLabelTap()
         setupSubviews()
         makeConstraints()
     }
@@ -61,7 +64,7 @@ class CustomTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setups
+    // MARK: - Methods
     
     func configureCellWith(door: DoorModel) {
         doorNameLabel.text = door.name
@@ -89,7 +92,6 @@ class CustomTableViewCell: UITableViewCell {
             self.doorConditionLabel.text = Condition.Unlocking.rawValue+"..."
             self.doorConditionLabel.textColor = UIColor(named: C.Colors.greyColor)
             self.leftIcon.image = UIImage(named: C.Icons.leftUnlocking)
-            
             unlockingDoor()
             rotateView(targetView: iconLoadCircle, duration: 1)
         default:
@@ -97,7 +99,6 @@ class CustomTableViewCell: UITableViewCell {
             self.doorConditionLabel.textColor = UIColor(named: C.Colors.blueColor)
             self.leftIcon.image = UIImage(named: C.Icons.leftLocked)
             self.rightIcon.image = UIImage(named: C.Icons.rightLocked)
-            
             removeIndicator()
         }
     }
@@ -107,13 +108,13 @@ class CustomTableViewCell: UITableViewCell {
         label.text = text
         label.font = UIFont.skModernist(style: style, size: size)
         label.textColor = UIColor(named: color)
-        //        let gestureRecognizer = UIGestureRecognizer(target: label, action: #selector(gestureHandler))
-        //        label.addGestureRecognizer(gestureRecognizer)
         return label
     }
     
-    @objc private func gestureHandler() {
-        print("test")
+    func setupLabelTap() {
+        let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.conditionLabelTapped(_:)))
+        doorConditionLabel.isUserInteractionEnabled = true
+        doorConditionLabel.addGestureRecognizer(labelTap)
     }
     
     private func unlockingDoor() {
@@ -141,37 +142,47 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     private func makeConstraints() {
+        let sidePaddingInCell: CGFloat = 27
+        let tablePadding: CGFloat = 20
+        let topPaddingInCell: CGFloat = 20
         
         container.snp.makeConstraints {
-            $0.width.equalTo(UIScreen.main.bounds.width - 36)
+            $0.width.equalTo(UIScreen.main.bounds.width - tablePadding * 2)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(110)
         }
         
         leftIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(18)
-            $0.left.equalToSuperview().offset(27)
+            $0.top.equalToSuperview().offset(topPaddingInCell)
+            $0.leading.equalToSuperview().offset(sidePaddingInCell)
         }
         
         rightIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(18)
-            $0.right.equalToSuperview().offset(-28)
+            $0.top.equalToSuperview().offset(topPaddingInCell)
+            $0.trailing.equalToSuperview().offset(-sidePaddingInCell)
         }
         
         doorNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(22)
-            $0.left.equalToSuperview().offset(82)
+            $0.top.equalToSuperview().offset(topPaddingInCell)
+            $0.leading.equalTo(leftIcon.snp.trailing).offset(14)
         }
         
         placeNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(41)
-            $0.left.equalToSuperview().offset(82)
+            $0.top.equalTo(doorNameLabel.snp.bottom).offset(2)
+            $0.leading.equalTo(leftIcon.snp.trailing).offset(14)
         }
         
         doorConditionLabel.snp.makeConstraints {
             $0.top.equalTo(placeNameLabel.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
         }
+    }
+    
+    //MARK: - Action
+    
+    @objc func conditionLabelTapped(_ sender: UITapGestureRecognizer) {
+        didPressedLabelCondition?()
+        print ("Condition label was pressed")
     }
 }
 

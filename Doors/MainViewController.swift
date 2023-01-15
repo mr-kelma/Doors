@@ -13,7 +13,10 @@ class MainViewController: UIViewController {
     
     private let model = StorageModel.shared
     private var doorsData: [DoorModel] = []
+    
     private lazy var customView = view as? MainView
+    
+    private var customCell: CustomTableViewCell?
     
     // MARK: - LifeCycle
     
@@ -23,7 +26,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        subscribeViewActions()
+        didPressedSettingButton()
+        didPressedLabelCondition()
         customView?.doorTable.delegate = self
         customView?.doorTable.dataSource = self
         loadTableView()
@@ -31,9 +35,17 @@ class MainViewController: UIViewController {
     
     // MARK: - Methods
     
-    private func subscribeViewActions() {
+    private func didPressedSettingButton() {
         customView?.didPressedSettingButton = {
             print("Setting button was pressed")
+        }
+    }
+    
+    private func didPressedLabelCondition() {
+        customView?.didPressedSettingButton = {
+            self.customCell?.didPressedLabelCondition = {
+                //some action
+            }
         }
     }
     

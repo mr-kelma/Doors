@@ -60,42 +60,43 @@ class MainView: UIView {
     }
     
     func makeConstraints() {
-        let padding: CGFloat = 20
+        let sidePadding: CGFloat = 20
+        let sidePaddingForTable: CGFloat = 20
         
         topLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(77)
-            $0.leading.equalToSuperview().inset(padding)
+            $0.leading.equalToSuperview().inset(sidePadding)
         }
         
         settingButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(63)
-            $0.trailing.equalToSuperview().inset(padding)
+            $0.trailing.equalToSuperview().inset(sidePadding)
         }
         
         imageHomes.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(108)
-            $0.trailing.equalToSuperview().inset(4)
+            $0.top.equalTo(settingButton.snp.bottom)
+            $0.trailing.equalToSuperview().inset(5)
         }
         
         welcomeLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(157)
-            $0.leading.equalToSuperview().inset(padding)
+            $0.top.equalTo(topLabel.snp.bottom).offset(63)
+            $0.leading.equalToSuperview().inset(sidePadding)
         }
         
         myDoorsLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(307)
-            $0.leading.equalToSuperview().inset(padding)
+            $0.top.equalTo(welcomeLabel.snp.bottom).offset(115)
+            $0.leading.equalToSuperview().inset(sidePadding)
         }
         
         activityIndicator.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(312)
+            $0.top.equalTo(welcomeLabel.snp.bottom).offset(118)
             $0.leading.equalTo(myDoorsLabel.snp.trailing).offset(8)
         }
         
         doorTable.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(360)
+            $0.top.equalTo(myDoorsLabel.snp.bottom).offset(20)
             $0.bottom.equalToSuperview().inset(40)
-            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.leading.trailing.equalToSuperview().inset(sidePaddingForTable)
         }
     }
     
