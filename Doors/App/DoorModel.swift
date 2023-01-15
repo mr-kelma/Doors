@@ -1,5 +1,5 @@
 //
-//  Door.swift
+//  DoorModel.swift
 //  Doors
 //
 //  Created by Valery Keplin on 12.01.23.

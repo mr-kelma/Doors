@@ -19,11 +19,10 @@ class StorageModel {
     }
     
     func loadData() {
-        networkingManager.downloadData { responseData in
+        networkingManager.downloadDataPseudo { responseData in
             for data in responseData.result {
                 DispatchQueue.main.async {
                     self.doors.append(DoorModel(door: data))
-                    print(responseData.result)
                 }
             }
         }

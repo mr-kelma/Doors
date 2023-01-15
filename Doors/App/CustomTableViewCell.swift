@@ -107,7 +107,13 @@ class CustomTableViewCell: UITableViewCell {
         label.text = text
         label.font = UIFont.skModernist(style: style, size: size)
         label.textColor = UIColor(named: color)
+        //        let gestureRecognizer = UIGestureRecognizer(target: label, action: #selector(gestureHandler))
+        //        label.addGestureRecognizer(gestureRecognizer)
         return label
+    }
+    
+    @objc private func gestureHandler() {
+        print("test")
     }
     
     private func unlockingDoor() {

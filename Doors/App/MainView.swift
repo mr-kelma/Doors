@@ -107,14 +107,14 @@ class MainView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }
-
+    
     private func setLabel(text: String, style: String, size: CGFloat) -> UILabel {
         let label = UILabel()
         label.text = text
         label.font = UIFont.skModernist(style: style, size: size)
         return label
     }
-
+    
     //MARK: - Action
     
     @objc func pressedSetting() {

@@ -25,18 +25,22 @@ class NetworkingManager {
                   let responseData = data
             else { return }
             do {
-                _ = try JSONDecoder().decode(ResponseResult.self, from: responseData)
-                let doorsResponse = ResponseResult(result: [
-                        Door(name: "Front door", place: "Home", condition: "Locked"),
-                        Door(name: "Front door", place: "Office", condition: "Locked"),
-                        Door(name: "Front door", place: "Garage", condition: "Locked"),
-                        Door(name: "Front door", place: "Country house", condition: "Locked"),
-                        Door(name: "Front door", place: "Shed", condition: "Locked")
-                    ])
-                completionHandler(doorsResponse)
+                let response = try JSONDecoder().decode(ResponseResult.self, from: responseData)
+                completionHandler(response)
             } catch {
                 print(error)
             }
         }.resume()
+    }
+    
+    func downloadDataPseudo(_ completionHandler: @escaping (ResponseResult) -> Void) {
+        let doorsResponse = ResponseResult(result: [
+            Door(name: "Front door", place: "Home", condition: "Locked"),
+            Door(name: "Front door", place: "Office", condition: "Locked"),
+            Door(name: "Front door", place: "Garage", condition: "Locked"),
+            Door(name: "Front door", place: "Country house", condition: "Locked"),
+            Door(name: "Front door", place: "Shed", condition: "Locked")
+        ])
+        completionHandler(doorsResponse)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainController.swift
 //  Doors
 //
 //  Created by Valery Keplin on 10.01.23.
@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private let model = StorageModel.shared
@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
 // MARK: - Protocols: UITableViewDelegate, UITableViewDataSource
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doorsData.count
     }
@@ -80,7 +80,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             let doorCondition = door.condition.rawValue
             cell.changeCellCondition(doorCondition: doorCondition)
         }
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
             door.condition = .Locked
             self.doorsData[indexPath.row].condition = .Locked
