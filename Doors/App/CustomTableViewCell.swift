@@ -7,13 +7,19 @@
 
 import UIKit
 
+protocol CustomTableViewCellDelegate: AnyObject {
+    func handleDoorConditionLabelTapped(index: Int)
+}
+
 class CustomTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
     static let identifier = C.identifier
     
-    var didPressedLabelCondition: (() -> Void)?
+    var cellIndex: Int?
+    
+    weak var delegate: CustomTableViewCellDelegate?
     
     private let leftIcon: UIImageView = {
         let imageView = UIImageView()
@@ -66,7 +72,8 @@ class CustomTableViewCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func configureCellWith(door: DoorModel) {
+    func configureCellWith(door: DoorModel, index: Int) {
+        cellIndex = index
         doorNameLabel.text = door.name
         placeNameLabel.text = door.place
         doorConditionLabel.text = door.condition.rawValue
@@ -87,19 +94,19 @@ class CustomTableViewCell: UITableViewCell {
             self.doorConditionLabel.text = Condition.Unlocked.rawValue
             self.doorConditionLabel.textColor = UIColor(named: C.Colors.lightBlueColor)
             self.leftIcon.image = UIImage(named: C.Icons.leftUnlocked)
-            self.rightIcon.image = UIImage(named: C.Icons.rightLocked)
+            self.rightIcon.image = UIImage(named: C.Icons.righUnlocked)
+            removeIndicator()
         case Condition.Unlocking.rawValue:
             self.doorConditionLabel.text = Condition.Unlocking.rawValue+"..."
             self.doorConditionLabel.textColor = UIColor(named: C.Colors.greyColor)
             self.leftIcon.image = UIImage(named: C.Icons.leftUnlocking)
             unlockingDoor()
-            rotateView(targetView: iconLoadCircle, duration: 1)
+            rotateView(targetView: iconLoadCircle, rotationPeriod: 1)
         default:
             self.doorConditionLabel.text = Condition.Locked.rawValue
             self.doorConditionLabel.textColor = UIColor(named: C.Colors.blueColor)
             self.leftIcon.image = UIImage(named: C.Icons.leftLocked)
             self.rightIcon.image = UIImage(named: C.Icons.rightLocked)
-            removeIndicator()
         }
     }
     
@@ -181,18 +188,32 @@ class CustomTableViewCell: UITableViewCell {
     //MARK: - Action
     
     @objc func conditionLabelTapped(_ sender: UITapGestureRecognizer) {
-        didPressedLabelCondition?()
-        print ("Condition label was pressed")
+        delegate?.handleDoorConditionLabelTapped(index: cellIndex ?? 0)
+        changeCellCondition(doorCondition: Condition.Unlocking.rawValue)
+        doorConditionLabel.isUserInteractionEnabled = false
+        isUserInteractionEnabled = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.changeCellCondition(doorCondition: Condition.Unlocked.rawValue)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            self.changeCellCondition(doorCondition: Condition.Locked.rawValue)
+            self.doorConditionLabel.isUserInteractionEnabled = true
+            self.isUserInteractionEnabled = true
+        }
     }
 }
 
-// MARK: - Rotate mode
+// MARK: - Rotate Mode
 
 extension CustomTableViewCell {
-    func rotateView(targetView: UIView, duration: Double) {
-        UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
-            targetView.transform = targetView.transform.rotated(by: .pi)
-        }) { finished in self.rotateView(targetView: targetView, duration: duration)
+    func rotateView(targetView: UIView, rotationPeriod: Double) {
+        for _ in 1...3 {
+            let period = rotationPeriod * 3
+            UIView.animate(withDuration: period, delay: 0, options: .curveLinear, animations: {
+                targetView.transform = targetView.transform.rotated(by: .pi)
+            }, completion: nil)
         }
     }
 }

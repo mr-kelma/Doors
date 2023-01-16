@@ -16,8 +16,6 @@ class MainViewController: UIViewController {
     
     private lazy var customView = view as? MainView
     
-    private var customCell: CustomTableViewCell?
-    
     // MARK: - LifeCycle
     
     override func loadView() {
@@ -26,8 +24,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        didPressedSettingButton()
-        didPressedLabelCondition()
+        subscribeCustomViewAction()
         customView?.doorTable.delegate = self
         customView?.doorTable.dataSource = self
         loadTableView()
@@ -35,17 +32,9 @@ class MainViewController: UIViewController {
     
     // MARK: - Methods
     
-    private func didPressedSettingButton() {
+    private func subscribeCustomViewAction() {
         customView?.didPressedSettingButton = {
             print("Setting button was pressed")
-        }
-    }
-    
-    private func didPressedLabelCondition() {
-        customView?.didPressedSettingButton = {
-            self.customCell?.didPressedLabelCondition = {
-                //some action
-            }
         }
     }
     
@@ -72,33 +61,56 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
-        cell.configureCellWith(door: doorsData[indexPath.row])
+        cell.configureCellWith(door: doorsData[indexPath.row], index: indexPath.row)
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell else { return }
-        var door = doorsData[indexPath.row]
-        door.condition = .Unlocking
-        doorsData[indexPath.row].condition = .Unlocking
-        let doorCondition = door.condition.rawValue
+        let doorCondition = setUnlocking(index: indexPath.row)
         cell.changeCellCondition(doorCondition: doorCondition)
         cell.isUserInteractionEnabled = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            door.condition = .Unlocked
-            self.doorsData[indexPath.row].condition = .Unlocked
-            let doorCondition = door.condition.rawValue
+            let doorCondition = self.setUnlocked(index: indexPath.row)
             cell.changeCellCondition(doorCondition: doorCondition)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-            door.condition = .Locked
-            self.doorsData[indexPath.row].condition = .Locked
-            let doorCondition = door.condition.rawValue
+            let doorCondition = self.setLocked(index: indexPath.row)
             cell.changeCellCondition(doorCondition: doorCondition)
             cell.isUserInteractionEnabled = true
         }
+    }
+    
+    func setUnlocking(index: Int) -> String {
+        var door = doorsData[index]
+        door.condition = .Unlocking
+        doorsData[index].condition = .Unlocking
+        return door.condition.rawValue
+    }
+    
+    func setUnlocked(index: Int) -> String {
+        var door = doorsData[index]
+        door.condition = .Unlocked
+        doorsData[index].condition = .Unlocked
+        return door.condition.rawValue
+    }
+    
+    func setLocked(index: Int) -> String {
+        var door = doorsData[index]
+        door.condition = .Locked
+        doorsData[index].condition = .Locked
+        return door.condition.rawValue
+    }
+}
+
+// MARK: - Protocol: CustomTableViewCellDelegate
+
+extension MainViewController: CustomTableViewCellDelegate {
+    func handleDoorConditionLabelTapped(index: Int) {
+        doorsData[index].condition = .Locked
     }
 }

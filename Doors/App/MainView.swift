@@ -84,12 +84,12 @@ class MainView: UIView {
         }
         
         myDoorsLabel.snp.makeConstraints {
-            $0.top.equalTo(welcomeLabel.snp.bottom).offset(115)
+            $0.top.equalTo(welcomeLabel.snp.bottom).offset(120)
             $0.leading.equalToSuperview().inset(sidePadding)
         }
         
         activityIndicator.snp.makeConstraints {
-            $0.top.equalTo(welcomeLabel.snp.bottom).offset(118)
+            $0.top.equalTo(welcomeLabel.snp.bottom).offset(124)
             $0.leading.equalTo(myDoorsLabel.snp.trailing).offset(8)
         }
         
