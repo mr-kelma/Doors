@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkingManager {
     
-    private let apiAddress = "http://api.doors.org/data/***"
+    private let apiAddress = "https://api.doors.org/data/***"
     
     func downloadData(_ completionHandler: @escaping (ResponseResult) -> Void) {
         guard let url = URL(string: apiAddress) else { return }
@@ -31,5 +31,16 @@ class NetworkingManager {
                 print(error)
             }
         }.resume()
+    }
+    
+    func downloadDataPseudo(_ completionHandler: @escaping (ResponseResult) -> Void) {
+        let doorsResponse = ResponseResult(result: [
+            Door(name: "Front door", place: "Home", condition: "Locked"),
+            Door(name: "Front door", place: "Office", condition: "Locked"),
+            Door(name: "Front door", place: "Garage", condition: "Locked"),
+            Door(name: "Front door", place: "Country house", condition: "Locked"),
+            Door(name: "Front door", place: "Shed", condition: "Locked")
+        ])
+        completionHandler(doorsResponse)
     }
 }
