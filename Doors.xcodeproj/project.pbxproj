@@ -11,6 +11,9 @@
 		702B52D3296EDDF100AA1A26 /* Sk-Modernist-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 702B52D2296EDDE800AA1A26 /* Sk-Modernist-Bold.otf */; };
 		702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52D8296EE2E800AA1A26 /* CustomFont.swift */; };
 		702B52DB296F51F700AA1A26 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */; };
+		705DFD762972E50A0071375B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DFD752972E50A0071375B /* Constants.swift */; };
+		705DFD78297311B00071375B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DFD77297311B00071375B /* MainView.swift */; };
+		705DFD7A297338660071375B /* StorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705DFD79297338660071375B /* StorageModel.swift */; };
 		70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A76296D7EC600031E68 /* AppDelegate.swift */; };
 		70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A78296D7EC600031E68 /* SceneDelegate.swift */; };
 		70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE1A7A296D7EC600031E68 /* MainViewController.swift */; };
@@ -26,6 +29,9 @@
 		702B52D2296EDDE800AA1A26 /* Sk-Modernist-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sk-Modernist-Bold.otf"; sourceTree = "<group>"; };
 		702B52D8296EE2E800AA1A26 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		705DFD752972E50A0071375B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		705DFD77297311B00071375B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		705DFD79297338660071375B /* StorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageModel.swift; sourceTree = "<group>"; };
 		70CE1A73296D7EC600031E68 /* Doors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70CE1A76296D7EC600031E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70CE1A78296D7EC600031E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +73,7 @@
 		702B52D7296EE2A900AA1A26 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				705DFD752972E50A0071375B /* Constants.swift */,
 				702B52D8296EE2E800AA1A26 /* CustomFont.swift */,
 			);
 			name = Extension;
@@ -105,11 +112,11 @@
 			children = (
 				70CE1A8A296D809600031E68 /* .gitignore */,
 				70CE1A8C296D80D200031E68 /* App */,
-				70CE1A8D296D810100031E68 /* Controller */,
-				70CE1A90296D815E00031E68 /* View */,
 				70CE1A8F296D814E00031E68 /* Model */,
-				70D0D5E029709A7500DA0976 /* Networking */,
+				70CE1A90296D815E00031E68 /* View */,
+				70CE1A8D296D810100031E68 /* Controller */,
 				702B52D7296EE2A900AA1A26 /* Extension */,
+				70D0D5E029709A7500DA0976 /* Networking */,
 				70CE1A8E296D811F00031E68 /* Resources */,
 				70CE1A84296D7EC700031E68 /* Info.plist */,
 			);
@@ -147,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				70D0D5DB296FFA7B00DA0976 /* DoorModel.swift */,
+				705DFD79297338660071375B /* StorageModel.swift */,
 			);
 			name = Model;
 			path = App;
@@ -156,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				702B52DA296F51F700AA1A26 /* CustomTableViewCell.swift */,
+				705DFD77297311B00071375B /* MainView.swift */,
 			);
 			name = View;
 			path = App;
@@ -297,11 +306,14 @@
 				70CE1A7B296D7EC600031E68 /* MainViewController.swift in Sources */,
 				70D0D5DC296FFA7B00DA0976 /* DoorModel.swift in Sources */,
 				702B52DB296F51F700AA1A26 /* CustomTableViewCell.swift in Sources */,
+				705DFD78297311B00071375B /* MainView.swift in Sources */,
 				702B52D9296EE2E800AA1A26 /* CustomFont.swift in Sources */,
 				70CE1A77296D7EC600031E68 /* AppDelegate.swift in Sources */,
 				70D0D5E429709C0800DA0976 /* ResponseResult.swift in Sources */,
 				70CE1A79296D7EC600031E68 /* SceneDelegate.swift in Sources */,
 				70D0D5E229709A9500DA0976 /* NetworkingManager.swift in Sources */,
+				705DFD762972E50A0071375B /* Constants.swift in Sources */,
+				705DFD7A297338660071375B /* StorageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

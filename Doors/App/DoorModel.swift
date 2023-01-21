@@ -1,5 +1,5 @@
 //
-//  Door.swift
+//  DoorModel.swift
 //  Doors
 //
 //  Created by Valery Keplin on 12.01.23.
@@ -7,28 +7,38 @@
 
 import Foundation
 
-class DoorModel {
+enum Condition: String, Codable {
+    case Locked
+    case Unlocking
+    case Unlocked
     
-    static let shared = DoorModel()
-    var doors: [Door] = []
-    
-//    private let networkingManager = NetworkingManager()
-    
-    init() {
-        self.loadData()
+    init?(rawValue: String) {
+        switch rawValue {
+        case "Unlocked": self = .Unlocked
+        case "Unlocking": self = .Unlocking
+        default: self = .Locked
+        }
+    }
+}
+
+struct DoorModel: Codable {
+    let name: String
+    let place: String
+    var condition: Condition
+    var color: String {
+        switch condition {
+        case Condition.Locked:
+            return C.Colors.blueColor
+        case Condition.Unlocking:
+            return C.Colors.greyColor
+        default:
+            return C.Colors.lightBlueColor
+        }
     }
     
-    func loadData() {
-        print("Making a request to the network")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            self?.doors = [
-                Door(name: "Front door", place: "Home", condition: Condition.Locked),
-                Door(name: "Front door", place: "Office", condition: Condition.Locked),
-                Door(name: "Front door", place: "Garage", condition: Condition.Locked),
-                Door(name: "Front door", place: "Country house", condition: Condition.Locked),
-                Door(name: "Front door", place: "Shed", condition: Condition.Locked)
-            ]
-            print("Data received")
-        }
+    init(door: Door) {
+        self.name = door.name
+        self.place = door.place
+        self.condition = Condition(rawValue: door.condition) ?? Condition.Locked
     }
 }

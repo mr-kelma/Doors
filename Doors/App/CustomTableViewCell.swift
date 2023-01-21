@@ -7,29 +7,37 @@
 
 import UIKit
 
+protocol CustomTableViewCellDelegate: AnyObject {
+    func handleDoorConditionLabelTapped(index: Int)
+}
+
 class CustomTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "CustomTableViewCell"
+    static let identifier = C.identifier
+    
+    var cellIndex: Int?
+    
+    weak var delegate: CustomTableViewCellDelegate?
     
     private let leftIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "leftIconLocked")
+        imageView.image = UIImage(named: C.Icons.leftLocked)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private let rightIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "rightIconLocked")
+        imageView.image = UIImage(named: C.Icons.rightLocked)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private let iconLoadCircle: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "iconLoadCircle")
+        imageView.image = UIImage(named: C.Icons.loadCircle)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -43,58 +51,62 @@ class CustomTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var doorNameLabel = setLabel(text: "Front door", style: "Bold", size: 16, color: "darkBlueColor")
-    private lazy var placeNameLabel = setLabel(text: "Home", style: "Regular", size: 14, color: "greyColor")
-    private lazy var doorConditionLabel = setLabel(text: "Locked", style: "Bold", size: 15, color: "blueColor")
+    private lazy var doorNameLabel = setLabel(text: C.Labels.frontDoor, style: FontWeight.bold.rawValue, size: 16, color: C.Colors.darkBlueColor)
+    private lazy var placeNameLabel = setLabel(text: C.Labels.home, style: FontWeight.regular.rawValue, size: 14, color: C.Colors.greyColor)
+    private lazy var doorConditionLabel = setLabel(text: Condition.Locked.rawValue, style: FontWeight.bold.rawValue, size: 15, color: C.Colors.blueColor)
     
     // MARK: Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = .clear
         selectionStyle = .none
-        initialize()
+        setupLabelTap()
+        setupSubviews()
+        makeConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setups
+    // MARK: - Methods
     
-    func configureCellWith(door: Door) {
+    func configureCellWith(door: DoorModel, index: Int) {
+        cellIndex = index
         doorNameLabel.text = door.name
         placeNameLabel.text = door.place
         doorConditionLabel.text = door.condition.rawValue
         
         switch door.condition {
         case Condition.Locked:
-            doorConditionLabel.textColor = UIColor(named: "blueColor")
+            doorConditionLabel.textColor = UIColor(named: C.Colors.blueColor)
         case Condition.Unlocking:
-            doorConditionLabel.textColor = UIColor(named: "greyColor")
+            doorConditionLabel.textColor = UIColor(named: C.Colors.greyColor)
         default:
-            doorConditionLabel.textColor = UIColor(named: "lightBlueColor")
+            doorConditionLabel.textColor = UIColor(named: C.Colors.lightBlueColor)
         }
     }
     
     func changeCellCondition(doorCondition: String) {
         switch doorCondition {
-        case "Locked":
-            self.doorConditionLabel.text = "Locked"
-            self.doorConditionLabel.textColor = UIColor(named: "blueColor")
-            self.leftIcon.image = UIImage(named: "leftIconLocked")
-            self.rightIcon.image = UIImage(named: "rightIconLocked")
-        case "Unlocking":
-            self.doorConditionLabel.text = "Unlocking..."
-            self.doorConditionLabel.textColor = UIColor(named: "greyColor")
-            self.leftIcon.image = UIImage(named: "leftIconUnlocking")
-            unlockingDoor()
-            rotateView(targetView: iconLoadCircle, duration: 1)
-        default:
-            self.doorConditionLabel.text = "Unlocked"
-            self.doorConditionLabel.textColor = UIColor(named: "lightBlueColor")
-            self.leftIcon.image = UIImage(named: "leftIconUnlocked")
-            self.rightIcon.image = UIImage(named: "rightIconUnlocked")
+        case Condition.Unlocked.rawValue:
+            self.doorConditionLabel.text = Condition.Unlocked.rawValue
+            self.doorConditionLabel.textColor = UIColor(named: C.Colors.lightBlueColor)
+            self.leftIcon.image = UIImage(named: C.Icons.leftUnlocked)
+            self.rightIcon.image = UIImage(named: C.Icons.righUnlocked)
             removeIndicator()
+        case Condition.Unlocking.rawValue:
+            self.doorConditionLabel.text = Condition.Unlocking.rawValue+"..."
+            self.doorConditionLabel.textColor = UIColor(named: C.Colors.greyColor)
+            self.leftIcon.image = UIImage(named: C.Icons.leftUnlocking)
+            unlockingDoor()
+            rotateView(targetView: iconLoadCircle, rotationPeriod: 1)
+        default:
+            self.doorConditionLabel.text = Condition.Locked.rawValue
+            self.doorConditionLabel.textColor = UIColor(named: C.Colors.blueColor)
+            self.leftIcon.image = UIImage(named: C.Icons.leftLocked)
+            self.rightIcon.image = UIImage(named: C.Icons.rightLocked)
         }
     }
     
@@ -104,6 +116,12 @@ class CustomTableViewCell: UITableViewCell {
         label.font = UIFont.skModernist(style: style, size: size)
         label.textColor = UIColor(named: color)
         return label
+    }
+    
+    func setupLabelTap() {
+        let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.conditionLabelTapped(_:)))
+        doorConditionLabel.isUserInteractionEnabled = true
+        doorConditionLabel.addGestureRecognizer(labelTap)
     }
     
     private func unlockingDoor() {
@@ -121,55 +139,81 @@ class CustomTableViewCell: UITableViewCell {
         iconLoadCircle.removeFromSuperview()
     }
     
-    private func initialize() {
-        contentView.backgroundColor = .clear
-        
+    private func setupSubviews() {
         contentView.addSubview(container)
+        container.addSubview(leftIcon)
+        container.addSubview(rightIcon)
+        container.addSubview(doorNameLabel)
+        container.addSubview(placeNameLabel)
+        container.addSubview(doorConditionLabel)
+    }
+    
+    private func makeConstraints() {
+        let sidePaddingInCell: CGFloat = 27
+        let tablePadding: CGFloat = 20
+        let topPaddingInCell: CGFloat = 20
+        
         container.snp.makeConstraints {
-            $0.width.equalTo(UIScreen.main.bounds.width - 36)
+            $0.width.equalTo(UIScreen.main.bounds.width - tablePadding * 2)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(110)
         }
         
-        container.addSubview(leftIcon)
         leftIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(18)
-            $0.left.equalToSuperview().offset(27)
+            $0.top.equalToSuperview().offset(topPaddingInCell)
+            $0.leading.equalToSuperview().offset(sidePaddingInCell)
         }
         
-        container.addSubview(rightIcon)
         rightIcon.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(18)
-            $0.right.equalToSuperview().offset(-28)
+            $0.top.equalToSuperview().offset(topPaddingInCell)
+            $0.trailing.equalToSuperview().offset(-sidePaddingInCell)
         }
         
-        container.addSubview(doorNameLabel)
         doorNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(22)
-            $0.left.equalToSuperview().offset(82)
+            $0.top.equalToSuperview().offset(topPaddingInCell)
+            $0.leading.equalTo(leftIcon.snp.trailing).offset(14)
         }
         
-        container.addSubview(placeNameLabel)
         placeNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(41)
-            $0.left.equalToSuperview().offset(82)
+            $0.top.equalTo(doorNameLabel.snp.bottom).offset(2)
+            $0.leading.equalTo(leftIcon.snp.trailing).offset(14)
         }
         
-        container.addSubview(doorConditionLabel)
         doorConditionLabel.snp.makeConstraints {
             $0.top.equalTo(placeNameLabel.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
         }
     }
+    
+    //MARK: - Action
+    
+    @objc func conditionLabelTapped(_ sender: UITapGestureRecognizer) {
+        delegate?.handleDoorConditionLabelTapped(index: cellIndex ?? 0)
+        changeCellCondition(doorCondition: Condition.Unlocking.rawValue)
+        doorConditionLabel.isUserInteractionEnabled = false
+        isUserInteractionEnabled = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.changeCellCondition(doorCondition: Condition.Unlocked.rawValue)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            self.changeCellCondition(doorCondition: Condition.Locked.rawValue)
+            self.doorConditionLabel.isUserInteractionEnabled = true
+            self.isUserInteractionEnabled = true
+        }
+    }
 }
 
-// MARK: - Rotate mode
+// MARK: - Rotate Mode
 
 extension CustomTableViewCell {
-    func rotateView(targetView: UIView, duration: Double) {
-        UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
-            targetView.transform = targetView.transform.rotated(by: .pi)
-        }) { finished in self.rotateView(targetView: targetView, duration: duration)
+    func rotateView(targetView: UIView, rotationPeriod: Double) {
+        for _ in 1...3 {
+            let period = rotationPeriod * 3
+            UIView.animate(withDuration: period, delay: 0, options: .curveLinear, animations: {
+                targetView.transform = targetView.transform.rotated(by: .pi)
+            }, completion: nil)
         }
     }
 }
